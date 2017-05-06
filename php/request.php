@@ -13,8 +13,7 @@
 		}
 		sendHtmlAndJsData('polls', $request, $moduleName);
 	}
-	else
-  {
+	else {
 		$db = dbConnect();
 
 		if ($db != false) {
