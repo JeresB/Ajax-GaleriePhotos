@@ -30,11 +30,11 @@ function ajaxRequest(type, request, callback, data = null) {
 }
 
 function callback(response) {
-  var divPolls = document.getElementById('polls');
+  var divSuccess = document.getElementById('success');
 
   var text = '<div class = "alert alert-success" role="alert">';
   text += '<strong>' + response + '</strong></div>';
-  divPolls.innerHTML = text;
+  divSuccess.innerHTML = text;
 }
 
 

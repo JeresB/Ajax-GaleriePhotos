@@ -8,10 +8,10 @@
 	{
 		// We extract the module name.
 		$moduleName = substr($request, strrpos($request, '/') + 1);
-		if ($moduleName == 'chat') {
-			sendHtmlAndJsData('chat', $request, $moduleName);
-		}
-		sendHtmlAndJsData('polls', $request, $moduleName);
+		//if ($moduleName == 'chat') {
+			sendHtmlAndJsData(/* Nom du module */, $request, $moduleName);
+		//}
+		//sendHtmlAndJsData('polls', $request, $moduleName);
 	}
 	else {
 		$db = dbConnect();
@@ -27,20 +27,17 @@
 				if ($id != NULL && $id != "" && $requestType == 'GET') {
 					$id = intval($id);
 					$data = dbRequestPolls($db, $id);
-				}
 
-				if ($id != NULL && $id != "" && $requestType == 'PUT') {
+				} else if ($id != NULL && $id != "" && $requestType == 'PUT') {
 					parse_str(file_get_contents('php://input'), $_PUT);
 					error_log($_PUT['choice']);
 					$data = dbReplyPoll($db, intval($id), $_PUT['choice']);
-				}
 
-				if ($id != NULL && $id != "" && $requestType == 'POST') {
+				} else if ($id != NULL && $id != "" && $requestType == 'POST') {
 					$data = dbAddPoll($db, $_POST['login'], $_POST['title'],
 					$_POST['option1'], $_POST['option2'], $_POST['option3']);
-				}
 
-				if ($requestType == 'GET') {
+				} else if ($requestType == 'GET') {
 					if (isset($_GET['login']))
 						$data = dbRequestPolls($db, -1, $_GET['login']);
 					else

@@ -1,6 +1,7 @@
 'use strict';
 
-ajaxRequest('GET', 'php/request.php/module/polls/list', loadHtmlAndJs);
-$.cookie('login', 'cir2');
+// Requete pour le module galerie
+ajaxRequest('GET', 'php/request.php/module/galerie', loadHtmlAndJs);
 
-ajaxRequest('GET', 'php/request.php/module/chat', loadHtmlAndJs);
+// Requete pour le module commentaire
+ajaxRequest('GET', 'php/request.php/module/commentaire', loadHtmlAndJs);
