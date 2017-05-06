@@ -1,5 +1,5 @@
 <?php
-define("DB_USER", "cirpoll");
-define("DB_PASSWORD", "llopric");
-define("DB_NAME", "cirpoll");
+define("DB_USER", "galeriePhotos");
+define("DB_PASSWORD", "xxxxxxx");
+define("DB_NAME", "galeriePhotos");
 define("DB_SERVER", "localhost");
