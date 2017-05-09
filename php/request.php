@@ -8,10 +8,12 @@
 	{
 		// We extract the module name.
 		$moduleName = substr($request, strrpos($request, '/') + 1);
-		//if ($moduleName == 'chat') {
-			sendHtmlAndJsData(/* Nom du module */, $request, $moduleName);
-		//}
-		//sendHtmlAndJsData('polls', $request, $moduleName);
+		if ($moduleName == 'commentaire') {
+			sendHtmlAndJsData('commentaire', $request, $moduleName);
+		}
+
+		sendHtmlAndJsData('galerie', $request, $moduleName);
+
 	}
 	else {
 		$db = dbConnect();
@@ -19,31 +21,30 @@
 		if ($db != false) {
 			$request_explode = explode('/', $request);
 			$requestType = $_SERVER['REQUEST_METHOD'];
-			if(array_shift($request_explode) == 'polls') {
+			if(array_shift($request_explode) == 'galerie') {
 				$data = NULL;
 
 				$id = array_shift($request_explode);
 
-				if ($id != NULL && $id != "" && $requestType == 'GET') {
-					$id = intval($id);
-					$data = dbRequestPolls($db, $id);
+				// if ($id != NULL && $id != "" && $requestType == 'GET') {
+				// 	$id = intval($id);
+				// 	$data = dbRequestPolls($db, $id);
+				//
+				// } else if ($id != NULL && $id != "" && $requestType == 'PUT') {
+				// 	parse_str(file_get_contents('php://input'), $_PUT);
+				// 	error_log($_PUT['choice']);
+				// 	$data = dbReplyPoll($db, intval($id), $_PUT['choice']);
+				//
+				// } else if ($id != NULL && $id != "" && $requestType == 'POST') {
+				// 	$data = dbAddPoll($db, $_POST['login'], $_POST['title'],
+				// 	$_POST['option1'], $_POST['option2'], $_POST['option3']);
+				//
+				// }
 
-				} else if ($id != NULL && $id != "" && $requestType == 'PUT') {
-					parse_str(file_get_contents('php://input'), $_PUT);
-					error_log($_PUT['choice']);
-					$data = dbReplyPoll($db, intval($id), $_PUT['choice']);
-
-				} else if ($id != NULL && $id != "" && $requestType == 'POST') {
-					$data = dbAddPoll($db, $_POST['login'], $_POST['title'],
-					$_POST['option1'], $_POST['option2'], $_POST['option3']);
-
-				} else if ($requestType == 'GET') {
-					if (isset($_GET['login']))
-						$data = dbRequestPolls($db, -1, $_GET['login']);
-					else
-						$data = dbRequestPolls($db);
-					//var_dump($data);
+				if ($requestType == 'GET') {
+					$data = dbRequestPolls($db);
 				}
+
 				if ($data != NULL)
 					sendJsonData($data);
 			}

@@ -1,5 +1,5 @@
 <?php
-define("DB_USER", "galeriePhotos");
-define("DB_PASSWORD", "xxxxxxx");
-define("DB_NAME", "galeriePhotos");
+define("DB_USER", "AjaxGaleriePhoto");
+define("DB_PASSWORD", "password");
+define("DB_NAME", "AjaxGaleriePhoto");
 define("DB_SERVER", "localhost");
