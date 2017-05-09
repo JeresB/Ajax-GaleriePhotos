@@ -8,9 +8,9 @@
 	{
 		// We extract the module name.
 		$moduleName = substr($request, strrpos($request, '/') + 1);
-		if ($moduleName == 'commentaire') {
+		//if ($moduleName == 'commentaire') {
 			sendHtmlAndJsData('commentaire', $request, $moduleName);
-		}
+		//}
 
 		sendHtmlAndJsData('galerie', $request, $moduleName);
 
@@ -26,10 +26,10 @@
 
 				$id = array_shift($request_explode);
 
-				// if ($id != NULL && $id != "" && $requestType == 'GET') {
-				// 	$id = intval($id);
-				// 	$data = dbRequestPolls($db, $id);
-				//
+				if ($id != NULL && $id != "" && $requestType == 'GET') {
+					$id = intval($id);
+					$data = dbRequestPolls($db, $id);
+				}
 				// } else if ($id != NULL && $id != "" && $requestType == 'PUT') {
 				// 	parse_str(file_get_contents('php://input'), $_PUT);
 				// 	error_log($_PUT['choice']);
@@ -41,7 +41,7 @@
 				//
 				// }
 
-				if ($requestType == 'GET') {
+				else if ($requestType == 'GET') {
 					$data = dbRequestPolls($db);
 				}
 

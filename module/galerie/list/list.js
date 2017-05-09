@@ -9,12 +9,26 @@ function loadGalerie(ajaxResponse) {
   var text = '';
   for (var i = 0; i < response.length; i++) {
     text += '<div class = "col-lg-3 col-md-6 col-xs-12">';
+    text += '<a href="#" id = "';
+    text += response[i].id;
+    text += '" class="thumbnail">';
     text += '<img src = "';
     text += response[i].url;
-    text += '"></div>';
+    text += '"></a></div>';
+
+    $('#' + response[i].id).unbind('click').click(function(event) {
+        event.preventDefault();
+        console.log("j'ai cliqué");
+        openBigPicture(event.target.id);
+      });
   }
 
   galerie.innerHTML = text;
 
   console.log(response);
+}
+
+function openBigPicture(pictureID) {
+  $.cookie('current-id', pictureID);
+  ajaxRequest('GET', 'php/request.php/module/galerie/bigPicture', loadHtmlAndJs);
 }
