@@ -16,6 +16,7 @@ function loadGalerie(ajaxResponse) {
     text += response[i].url;
     text += '"></a></div>';
 
+    galerie.innerHTML = text;
     $('#' + response[i].id).unbind('click').click(function(event) {
         event.preventDefault();
         console.log("j'ai cliqué");
@@ -23,7 +24,6 @@ function loadGalerie(ajaxResponse) {
       });
   }
 
-  galerie.innerHTML = text;
 
   console.log(response);
 }
