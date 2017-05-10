@@ -1,11 +1,13 @@
 <?php
+	header("Content-Type: text/plain");
+
 	require_once('database.php');
 	// We check the request type.
 	$request = substr($_SERVER['PATH_INFO'], 1);
-
+	//echo '$_SERVER["PATH_INFO"] : '.$_SERVER['PATH_INFO'];
+	//echo '$request : '.$request;
 	// We check if the request is a module.
-	if (is_dir('../'.$request))
-	{
+	if (is_dir('../'.$request)) {
 		// We extract the module name.
 		$moduleName = substr($request, strrpos($request, '/') + 1);
 
@@ -13,8 +15,7 @@
 
 		sendHtmlAndJsData('galerie', $request, $moduleName);
 
-	}
-	else {
+	} else {
 		$db = dbConnect();
 
 		if ($db != false) {
@@ -27,7 +28,7 @@
 
 				if ($id != NULL && $id != "" && $requestType == 'GET') {
 					$id = intval($id);
-					$data = dbRequestPolls($db, $id);
+					$data = dbRequestGalerie($db, $id);
 				}
 				// } else if ($id != NULL && $id != "" && $requestType == 'PUT') {
 				// 	parse_str(file_get_contents('php://input'), $_PUT);
@@ -41,21 +42,31 @@
 				// }
 
 				else if ($requestType == 'GET') {
-					$data = dbRequestPolls($db);
+					$data = dbRequestGalerie($db);
 				}
 
 				if ($data != NULL)
 					sendJsonData($data);
+			} else if ($request == 'commentaire') {
+				$data = NULL;
+
+				$commentaire = htmlspecialchars($_POST["commentaire"]);
+
+				if ($_POST["commentaire"] != NULL && $_POST["commentaire"] != "" && $requestType == 'POST') {
+					$data = dbAddCommentaire($db, $commentaire);
+				}
+
+				if ($data != NULL)
+					sendJsonData($data);
+			} else {
+				header('HTTP/1.1 503 Service Unavailable');
+				exit;
 			}
 		} else {
-			header('HTTP/1.1 503 Service Unavailable');
+			header('HTTP/1.1 400 Bad request');
 			exit;
 		}
-
-		header('HTTP/1.1 400 Bad request');
-		exit;
 	}
-
 
 	//----------------------------------------------------------------------------
 	//--- sendHtmlAndJsData ------------------------------------------------------

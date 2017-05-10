@@ -2,11 +2,13 @@
 
 function ajaxRequest(type, request, callback, data = null) {
   var xhr;
+  //var sData = encodeURIComponent(data);
 
   xhr = new XMLHttpRequest();
 
   if (type == 'GET' && data !== null)
     request += '?' + data;
+
 
   xhr.open(type, request, true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -25,8 +27,12 @@ function ajaxRequest(type, request, callback, data = null) {
         httpErrors(xhr.status);
     }
   };
+  var dataXhr = null;
 
-  xhr.send(data);
+  if (type == 'POST' && data !== null)
+    dataXhr = data;
+
+  xhr.send(dataXhr);
 }
 
 function callback(response) {

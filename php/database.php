@@ -11,7 +11,7 @@ function dbConnect() {
   return $pdo;
 }
 
-function dbRequestPolls($db, $id = -1) {
+function dbRequestGalerie($db, $id = -1) {
   try {
     $request = "SELECT * FROM photos ";
 
@@ -30,6 +30,21 @@ function dbRequestPolls($db, $id = -1) {
   }
 
   return $row;
+}
+
+function dbAddCommentaire($db, $commentaire) {
+  try {
+    $requete = "INSERT INTO commentaire (id, commentaire) VALUES (NULL, :commentaire)";
+    $query = $db->prepare($requete);
+    $query->bindParam(":commentaire", $commentaire, PDO::PARAM_STR, 255);
+    $query->execute();
+
+  } catch (PDOException $e) {
+    error_log('Ajout de commentaire échouée : '.$e->getMessage());
+    return false;
+  }
+
+  return true;
 }
 
 //$db = dbConnect();
