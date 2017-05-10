@@ -4,4 +4,4 @@
 ajaxRequest('GET', 'php/request.php/module/galerie/list', loadHtmlAndJs);
 
 // Requete pour le module commentaire
-ajaxRequest('GET', 'php/request.php/module/commentaire/list', loadHtmlAndJs);
+ajaxRequest('GET', 'php/request.php/module/commentaire/send', loadHtmlAndJs);

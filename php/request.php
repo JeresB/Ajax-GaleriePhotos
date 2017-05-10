@@ -8,9 +8,8 @@
 	{
 		// We extract the module name.
 		$moduleName = substr($request, strrpos($request, '/') + 1);
-		//if ($moduleName == 'commentaire') {
-			sendHtmlAndJsData('commentaire', $request, $moduleName);
-		//}
+
+		sendHtmlAndJsData('commentaire', $request, $moduleName);
 
 		sendHtmlAndJsData('galerie', $request, $moduleName);
 
