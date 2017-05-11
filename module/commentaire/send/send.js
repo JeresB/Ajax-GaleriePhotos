@@ -6,7 +6,7 @@ $('#commentaire-send').click(function() {
   // On récupère l'id de l'image actuelle
   var cookieId = $.cookie('current-id');
 
-  // Si aucun image est affiché en grand
+  // Si aucune image est affiché en grand
   if (typeof cookieId == 'undefined') {
     cookieId = 0;
   }
@@ -21,4 +21,5 @@ $('#commentaire-send').click(function() {
 function displayCommentaire() {
   // Afficher la liste de commentaire apres en avoir rajouté un !!!
   console.log("displayCommentaire");
+  ajaxRequest('GET', 'php/request.php/module/commentaire/listComm', loadHtmlAndJs);
 }

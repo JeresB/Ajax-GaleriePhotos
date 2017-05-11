@@ -34,7 +34,7 @@ function loadGalerie(ajaxResponse) {
 
     galerie.appendChild(div);
 
-    $("#image-" + id || "#lien--" + id).unbind('click').click(function (event) {
+    $(("#image-" + id) || ("#lien--" + id)).unbind('click').click(function (event) {
       event.preventDefault();
       openBigPicture(event.target.id);
     });
@@ -49,4 +49,5 @@ function openBigPicture(pictureID) {
   $.cookie('current-id', id);
 
   ajaxRequest('GET', 'php/request.php/module/galerie/bigPicture', loadHtmlAndJs);
+  ajaxRequest('GET', 'php/request.php/module/commentaire/listComm', loadHtmlAndJs);
 }

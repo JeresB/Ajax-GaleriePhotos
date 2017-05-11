@@ -12,3 +12,9 @@ function loadBigPicture(ajaxResponse) {
   var picture = document.getElementById('picture');
   picture.setAttribute("src", response[0].url);
 }
+
+$("#erase").click(function() {
+  $('#panelBigPicture').hide();
+  $.cookie('current-id', 0);
+  ajaxRequest('GET', 'php/request.php/module/commentaire/listComm', loadHtmlAndJs);
+});

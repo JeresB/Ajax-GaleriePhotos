@@ -15,9 +15,17 @@
 			sendHtmlAndJsData('photoGrandFormat', $request, $moduleName);
 		}
 
-		sendHtmlAndJsData('commentaire', $request, $moduleName);
+		if ($moduleName == 'send') {
+			sendHtmlAndJsData('commentaire', $request, $moduleName);
+		}
 
-		sendHtmlAndJsData('galerie', $request, $moduleName);
+		if ($moduleName == 'list') {
+			sendHtmlAndJsData('galerie', $request, $moduleName);
+		}
+
+		if ($moduleName == 'listComm') {
+			sendHtmlAndJsData('listCommentaire', $request, $moduleName);
+		}
 
 	} else {
 		$db = dbConnect();
@@ -25,10 +33,10 @@
 		if ($db != false) {
 			$request_explode = explode('/', $request);
 			$requestType = $_SERVER['REQUEST_METHOD'];
-			if(array_shift($request_explode) == 'galerie') {
+			if($request_explode[0] == 'galerie') {
 				$data = NULL;
 
-				$id = array_shift($request_explode);
+				$id = $request_explode[1];
 
 				if ($id != NULL && $id != "" && $requestType == 'GET') {
 					$id = intval($id);
@@ -49,8 +57,15 @@
 				// }
 				if ($data != NULL)
 					sendJsonData($data);
-			} else if ($request == 'commentaire') {
+			} else if ($request_explode[0] == 'commentaire') {
 				$data = NULL;
+
+				$id = $request_explode[1];
+
+				if ($id != NULL && $id != "" && $requestType == 'GET') {
+					$id = intval($id);
+					$data = dbRequestCommentaire($db, $id);
+				}
 
 				$commentaire = htmlspecialchars($_POST["commentaire"]);
 				$id_image = htmlspecialchars($_POST["id_image"]);

@@ -32,6 +32,24 @@ function dbRequestGalerie($db, $id = -1) {
   return $row;
 }
 
+function dbRequestCommentaire($db, $id = 0) {
+  try {
+    $request = "SELECT * FROM commentaire WHERE id_image = :id ";
+
+    $query = $db->prepare($request);
+    $query->bindParam(":id", $id, PDO::PARAM_INT);
+
+    $query->execute();
+    $row = $query->fetchAll(PDO::FETCH_ASSOC);
+
+  } catch (PDOException $e) {
+    error_log('Requête échouée : '.$e->getMessage());
+    return false;
+  }
+
+  return $row;
+}
+
 function dbAddCommentaire($db, $commentaire, $id_image) {
   try {
     $requete = "INSERT INTO commentaire (id, id_image, commentaire) VALUES (NULL, :id_image, :commentaire)";
