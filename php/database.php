@@ -32,10 +32,11 @@ function dbRequestGalerie($db, $id = -1) {
   return $row;
 }
 
-function dbAddCommentaire($db, $commentaire) {
+function dbAddCommentaire($db, $commentaire, $id_image) {
   try {
-    $requete = "INSERT INTO commentaire (id, commentaire) VALUES (NULL, :commentaire)";
+    $requete = "INSERT INTO commentaire (id, id_image, commentaire) VALUES (NULL, :id_image, :commentaire)";
     $query = $db->prepare($requete);
+    $query->bindParam(":id_image", $id_image, PDO::PARAM_INT, 5);
     $query->bindParam(":commentaire", $commentaire, PDO::PARAM_STR, 255);
     $query->execute();
 

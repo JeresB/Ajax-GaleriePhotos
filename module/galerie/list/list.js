@@ -8,27 +8,45 @@ function loadGalerie(ajaxResponse) {
 
   var text = '';
   for (var i = 0; i < response.length; i++) {
-    text += '<div class = "col-lg-3 col-md-6 col-xs-12">';
-    text += '<a href="#" id = "';
-    text += response[i].id;
-    text += '" class="thumbnail">';
-    text += '<img src = "';
-    text += response[i].url;
-    text += '"></a></div>';
+    var div;
+    var a;
+    var image;
+    var id = response[i].id;
+    var url = response[i].url;
 
-    galerie.innerHTML = text;
-    $('#' + response[i].id).unbind('click').click(function(event) {
-        event.preventDefault();
-        console.log("j'ai cliqué");
-        openBigPicture(event.target.id);
-      });
+    div = document.createElement('div');
+    div.className = 'col-lg-3 col-md-6 col-xs-12';
+
+    a = document.createElement('a');
+    a.className = 'thumbnail';
+    a.setAttribute("href", "#");
+    a.setAttribute("id", "lien--" + id);
+    console.log("ID de chaque image pos : " + i + " ID : " + id);
+
+    image = document.createElement('img');
+    image.setAttribute("id", "image-" + id);
+    image.setAttribute("src", url);
+
+
+    a.appendChild(image);
+
+    div.appendChild(a);
+
+    galerie.appendChild(div);
+
+    $("#image-" + id || "#lien--" + id).unbind('click').click(function (event) {
+      event.preventDefault();
+      openBigPicture(event.target.id);
+    });
   }
-
 
   console.log(response);
 }
 
 function openBigPicture(pictureID) {
-  $.cookie('current-id', pictureID);
+  var id = pictureID.substr(6);
+
+  $.cookie('current-id', id);
+
   ajaxRequest('GET', 'php/request.php/module/galerie/bigPicture', loadHtmlAndJs);
 }

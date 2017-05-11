@@ -1,23 +1,27 @@
 'use strict';
 
+// Fonction traitant toutes les requêtes Ajax
 function ajaxRequest(type, request, callback, data = null) {
-  var xhr;
-  //var sData = encodeURIComponent(data);
+  // Objet de requête Ajax
+  var xhr = new XMLHttpRequest();
 
-  xhr = new XMLHttpRequest();
-
+  // Si le type de la requête est GET et que les données ne sont pas vide.
+  // On ajoute les données à la fin de la requête
   if (type == 'GET' && data !== null)
     request += '?' + data;
 
-
+  // On ouvre une requête Ajax
   xhr.open(type, request, true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
+  // Si l'état de la requête change
   xhr.onreadystatechange = function(){
+    // On atteint que le retour de la requête soit prêt
     if (xhr.readyState != 4) {
       return;
     }
 
+    // On check le status de la requête
     switch (xhr.status) {
       case 200:
         console.log(xhr.responseText);
@@ -27,11 +31,14 @@ function ajaxRequest(type, request, callback, data = null) {
         httpErrors(xhr.status);
     }
   };
+
   var dataXhr = null;
 
+  // Si la requête est de type POST et que les données ne sont pas vide
   if (type == 'POST' && data !== null)
     dataXhr = data;
 
+  // On envoie la requête Ajax
   xhr.send(dataXhr);
 }
 

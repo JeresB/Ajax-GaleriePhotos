@@ -11,6 +11,10 @@
 		// We extract the module name.
 		$moduleName = substr($request, strrpos($request, '/') + 1);
 
+		if ($moduleName == 'bigPicture') {
+			sendHtmlAndJsData('photoGrandFormat', $request, $moduleName);
+		}
+
 		sendHtmlAndJsData('commentaire', $request, $moduleName);
 
 		sendHtmlAndJsData('galerie', $request, $moduleName);
@@ -29,6 +33,9 @@
 				if ($id != NULL && $id != "" && $requestType == 'GET') {
 					$id = intval($id);
 					$data = dbRequestGalerie($db, $id);
+
+				} else if ($requestType == 'GET') {
+					$data = dbRequestGalerie($db);
 				}
 				// } else if ($id != NULL && $id != "" && $requestType == 'PUT') {
 				// 	parse_str(file_get_contents('php://input'), $_PUT);
@@ -40,20 +47,16 @@
 				// 	$_POST['option1'], $_POST['option2'], $_POST['option3']);
 				//
 				// }
-
-				else if ($requestType == 'GET') {
-					$data = dbRequestGalerie($db);
-				}
-
 				if ($data != NULL)
 					sendJsonData($data);
 			} else if ($request == 'commentaire') {
 				$data = NULL;
 
 				$commentaire = htmlspecialchars($_POST["commentaire"]);
+				$id_image = htmlspecialchars($_POST["id_image"]);
 
-				if ($_POST["commentaire"] != NULL && $_POST["commentaire"] != "" && $requestType == 'POST') {
-					$data = dbAddCommentaire($db, $commentaire);
+				if ($_POST["commentaire"] != NULL && $_POST["commentaire"] != "" && $_POST["id_image"] != NULL && $_POST["id_image"] != "" && $requestType == 'POST') {
+					$data = dbAddCommentaire($db, $commentaire, $id_image);
 				}
 
 				if ($data != NULL)
