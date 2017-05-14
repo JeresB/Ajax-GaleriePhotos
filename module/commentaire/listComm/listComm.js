@@ -11,7 +11,7 @@ function loadCommentaire(ajaxResponse) {
   if (ajaxResponse != "") {
     var response = JSON.parse(ajaxResponse);
 
-    var div = document.getElementById('listCommentaire');
+    var div = document.getElementById('listComm');
     div.innerHTML = '';
 
     var text = '';

@@ -11,21 +11,7 @@
 		// We extract the module name.
 		$moduleName = substr($request, strrpos($request, '/') + 1);
 
-		if ($moduleName == 'bigPicture') {
-			sendHtmlAndJsData('photoGrandFormat', $request, $moduleName);
-		}
-
-		if ($moduleName == 'send') {
-			sendHtmlAndJsData('commentaire', $request, $moduleName);
-		}
-
-		if ($moduleName == 'list') {
-			sendHtmlAndJsData('galerie', $request, $moduleName);
-		}
-
-		if ($moduleName == 'listComm') {
-			sendHtmlAndJsData('listCommentaire', $request, $moduleName);
-		}
+		sendHtmlAndJsData($moduleName, $request, $moduleName);
 
 	} else {
 		$db = dbConnect();

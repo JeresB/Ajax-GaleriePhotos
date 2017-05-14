@@ -3,7 +3,7 @@ ajaxRequest('GET', 'php/request.php/galerie/', loadGalerie);
 function loadGalerie(ajaxResponse) {
   var response = JSON.parse(ajaxResponse);
 
-  var galerie = document.getElementById('galerie');
+  var galerie = document.getElementById('listGalerie');
   galerie.innerHTML = '';
 
   var text = '';
@@ -34,7 +34,7 @@ function loadGalerie(ajaxResponse) {
 
     galerie.appendChild(div);
 
-    $(("#image-" + id) || ("#lien--" + id)).unbind('click').click(function (event) {
+    $("#lien--" + id).unbind('click').click(function (event) {
       event.preventDefault();
       openBigPicture(event.target.id);
     });
