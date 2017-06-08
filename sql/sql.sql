@@ -23,8 +23,8 @@ CREATE TABLE photos(
 CREATE TABLE commentaire(
         id          int (11) Auto_increment  NOT NULL ,
         commentaire Varchar (255) ,
-        id_image   Int NOT NULL ,
+        id_image    Integer ,
         PRIMARY KEY (id )
 )ENGINE=InnoDB;
 
-ALTER TABLE commentaire ADD CONSTRAINT FK_commentaire_id_image FOREIGN KEY (id_image) REFERENCES photos(id);
+
